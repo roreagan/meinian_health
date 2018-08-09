@@ -425,6 +425,7 @@ self.textView2 = [[UITextView alloc] initWithFrame:CGRectMake(200, 30, 170, 70)]
 
 #### 自定义资源
 如果想要自定义资源，如小车Marker、自车罗盘等，用户可以直接替换`TencentNavigationKit.bundle`中的资源文件，（不能修改资源名称）此时导航SDK在使用时会加载用户提供的资源文件。
+
 ![](designed3.jpeg)
 
 
