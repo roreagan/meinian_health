@@ -385,7 +385,7 @@ self.textView2 = [[UITextField alloc] initWithFrame:CGRectMake(7, 200, 60, 60)];
 [self.textView2 setText:[[NSString alloc] initWithFormat:@"%i", data.currentSpeed]];
 }
 ```
-![](designed1.jpeg)
+![](designed2.jpeg)
 
 #### 自定义导航面板
 **1. 关闭默认面板**
@@ -438,7 +438,7 @@ self.textView2 = [[UITextView alloc] initWithFrame:CGRectMake(200, 30, 170, 70)]
 [self.imageView setImage:data.intersectionImage];
 }
 ```
-![](designed2.jpeg)
+![](designed1.jpeg)
 
 #### 自定义资源
 如果想要自定义资源，如小车Marker、自车罗盘等，用户可以直接替换`TencentNavigationKit.bundle`中的资源文件，（不能修改资源名称）此时导航SDK在使用时会加载用户提供的资源文件。
