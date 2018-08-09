@@ -202,7 +202,7 @@ if(error == nil)
 ```objc
 [self.carManager stop];
 ```
-非导航状态下，用户可以清除导航线路相关UI，包括导航路线、自车点以及动态添加的限速等标注：（非导航状态下调用无效）
+非导航状态下，用户可以清除导航线路相关UI，包括导航路线、车标以及动态添加的限速等标注：（非导航状态下调用无效）
 ```objc
 [self.carNaviView clearAllRouteUI];
 ```
