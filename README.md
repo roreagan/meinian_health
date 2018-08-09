@@ -53,6 +53,7 @@
 - searchOption：路线规划配置项，不可为空
 
 **路线规划请求参数说明**
+
 通过searchOption，可以配置是否避开收费道路、是否避开高速道路、是否结合路况、导航场景、起点路段类型。默认配置是不避开收费道路、不避开高速道路、不结合路况、接客模式、无详细起点路段类型。
 
 算路配置方法概览：
@@ -64,6 +65,7 @@ int navScene：设置导航场景，1表示接客，2表示送客
 TNKStartRoadType startRoadType：使用枚举设置起点路段类型，TNKStartRoadType_None为无详细类型，TNKStartRoadType_Elevated为在桥上，TNKStartRoadType_Downstairs为在桥下，TNKStartRoadType_MainRoad为在主路，TNKStartRoadType_ServingRoad为在辅路，TNKStartRoadType_DirectionRoad为在对面，TNKStartRoadType_DownstairsMainRoad为在桥下主路，TNKStartRoadType_DownstairsServingRoad为在桥下辅路
 ```
 **算路失败回调错误说明**
+
 回调NSError的错误码：
 
 - 1001：网络错误
@@ -110,6 +112,7 @@ request.wayPoints = wayPoints;
 }];
 ```
 **驾车路线**
+
 路线规划获取的`TNKCarRouteSearchResult`包含属性：
 ```
 NSArray<TNKCarRouteSearchRoutePlan *> *routes
@@ -135,6 +138,7 @@ locationEntry:(id <TNKLocationEntry> __nullable)locationEntry，路线规划成�
 - 停止实时导航：stop。
 
 **导航界面**
+
 腾讯导航SDK提供了默认的导航界面`TNKCarNaviView`，包括导航面板，导航地图：
 
 导航面板：
@@ -159,6 +163,7 @@ locationEntry:(id <TNKLocationEntry> __nullable)locationEntry，路线规划成�
 #### 使用说明
 
 **1. 初始化**
+
 导航过程中，导航SDK提供类TNKCarNaviView用于显示导航界面，由驾车导航控制类TNKCarNaviManager设置导航状态回调，调用驾车路线规划，启动/停止导航，设置路口方法图/车道线加载资源等。
 初始化过程如下：
 ```objc
@@ -175,9 +180,11 @@ self.carNaviView.delegate = self;
 ```
 
 **2. 发起路线规划**
+
 具体参考[驾车路径规划](#NaviPlan)。
 
 **3. 开始导航**
+
 路线规划成功后，在回调中获取用于导航的线路。
 ```objc
 [self.carManager searchNavigationRoutesWithRequest:request completion:^(TNKCarRouteSearchResult *result, NSError *error) {
@@ -190,6 +197,7 @@ if(error == nil)
 }];
 ```
 **4. 结束导航**
+
 到达终点后会自动结束导航，导航过程中可以手动结束导航：
 ```objc
 [self.carManager stop];
@@ -219,6 +227,7 @@ self.carNaviView.mode = TNKCarNaviUIMode3DCarTowardsUp;
 ```
 
 **设置导航日夜模式**
+
 通过`TNKCarNaviView`的属性dayNightMode设置日夜模式，默认为自动切换模式，可以通过dayNightStatus获取地图当前日夜状态。
 
 日夜切换模式TNKCarNaviDayNightMode：
@@ -237,6 +246,7 @@ self.carNaviView.mode = TNKCarNaviUIMode3DCarTowardsUp;
 self.carNaviView.dayNightMode = TNKCarNaviDayNightModeAlwaysDay;
 ```
 **设置导航面板**
+
 用户可以设定默认导航面板、车道线、路口放大图是否显示。
 ```objc
 // 设置默认面板（包含导航面板、车道线、路口放大图）的总开关
@@ -247,6 +257,7 @@ self.carManager.enableEnlargedIntersection = YES;
 self.carManager.enableGuidedLane = YES;
 ```
 **设置导航线路**
+
 ```objc
 // 设置导航路线宽度，默认值为12px
 self.carNaviView.routeLineWidth = 10;
@@ -255,6 +266,7 @@ self.carNaviView.routeLineEraseType = 0;
 ```
 
 **设置车标位置**
+
 ```objc
 // 设置3D导航模式下车标位于地图宽高的比例，默认x为0.5，y为0.75，取值范围为[0.25, 0.75]，超过则取默认值
 self.carNaviView.TNKCarNaviFixCarProportion2D = CGPointMake(0.5, 0.75);
@@ -337,6 +349,7 @@ didFailRecaculateRoute:(TNKCarNaviManagerRecaculateType)type;
 获取的导航数据可以用来添加导航面板控件，自定义导航面板。
 
 **1. 添加控件**
+
 ```objc
 self.textView = [[UITextField alloc] initWithFrame:CGRectMake(7, 130, 60, 60)];
 [self.textView setBackgroundColor:[UIColor whiteColor]];
@@ -363,6 +376,7 @@ self.textView2 = [[UITextField alloc] initWithFrame:CGRectMake(7, 200, 60, 60)];
 ```
 
 **2. 实现回调**
+
 使用`TNKCarNaviUIDelegate`协议获取数据。
 ```objc
 - (void)carNavigationManager:(TNKCarNaviManager *)manager updateNavigationData:(TNKCarNavigationData *)data
@@ -375,10 +389,12 @@ self.textView2 = [[UITextField alloc] initWithFrame:CGRectMake(7, 200, 60, 60)];
 
 #### 自定义导航面板
 **1. 关闭默认面板**
+
 ```objc
 self.carNaviView.hideNavigationPanel = YES;
 ```
 **2. 添加面板**
+
 ```objc
 UIView* backgroundTitleView = [[UIView alloc] initWithFrame:CGRectMake(self.carNaviView.frame.size.width / 2 - 200, 7, 400, 100)];
 backgroundTitleView.backgroundColor = [UIColor blackColor];
@@ -412,6 +428,7 @@ self.textView2 = [[UITextView alloc] initWithFrame:CGRectMake(200, 30, 170, 70)]
 ```
 
 **3. 实现回调**
+
 使用`TNKCarNaviUIDelegate`协议获取数据。
 ```objc
 - (void)carNavigationManager:(TNKCarNaviManager *)manager updateNavigationData:(TNKCarNavigationData *)data
