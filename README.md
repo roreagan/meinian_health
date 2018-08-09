@@ -9,12 +9,13 @@
 ### 介绍
 腾讯导航SDK是一款针对在线导航的产品。该产品能够结合实时交通信息计算路径，并且提供路径规划、模拟导航、实时导航、导航设置、自定义导航界面等功能，力求为用户提供更加人性化的导航服务。
 
-
 <div id="ProjectConfig"></div>
+
 ### 工程配置
 ------------
 #### 1、权限申请
 (1) 若使用实时导航，则需要在`info.list`中添加NSLocationWhenInUseUsageDescriptionh和NSLocationAlwaysUsageDescription字段。
+
 (2) 如果需要后台定位，需在IOS 9.0及以后设置allowBackgroundLocationUpdates为YES，此时必须保证`TARGETS->Capabilities->Background Modes->Location updates`处于选中状态。
 
 #### 2、引入SDK
@@ -30,8 +31,10 @@
 
 
 <div id="NaviPlan"></div>
+
 ### 驾车路径规划
 ------------
+
 #### 基本介绍
 `TNKCarNaviManager`根据起点、终点、途经点以及路径策略，为用户提供出行路线。方法：
 ```objc
@@ -119,6 +122,7 @@ NSArray<TNKCarRouteSearchRoutePlan *> *routes
 - line：路线数据，包含起终点、途经点、道路信息的坐标点串等
 
 <div id="Navi"></div>
+
 ### 导航
 ------------
 #### 基本介绍
@@ -196,8 +200,10 @@ if(error == nil)
 ```
 
 <div id="NaviConfig"></div>
+
 ### 导航设置
 ------------
+
 腾讯导航SDK提供导航模式、日夜模式等界面的动态设置，这些设置都是即时生效的。
 #### 设置导航模式
 通过`TNKCarNaviView`的属性mode进行设置:
@@ -257,8 +263,10 @@ self.carNaviView.TNKCarNaviFixCarProportion3D = CGPointMake(0.5, 0.75);
 ```
 
 <div id="NaviData"></div>
-###获取导航数据
+
+### 获取导航数据
 ------------
+
 #### 面板数据
 用户若需要自定义导航面板，可以通过采用`TNKCarNaviUIDelegate`协议获取面板数据，TNKCarNaviManager可同时注册多个对象接收更新：
 ```objc
@@ -322,10 +330,12 @@ didFailRecaculateRoute:(TNKCarNaviManagerRecaculateType)type;
 ```
 
 <div id="UIDesign"></div>
-###自定义UI
+
+### 自定义UI
 ------------
 #### 添加面板控件
 获取的导航数据可以用来添加导航面板控件，自定义导航面板。
+
 **1. 添加控件**
 ```objc
 self.textView = [[UITextField alloc] initWithFrame:CGRectMake(7, 130, 60, 60)];
