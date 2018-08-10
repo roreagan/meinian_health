@@ -345,6 +345,59 @@ didFailRecaculateRoute:(TNKCarNaviManagerRecaculateType)type;
 
 ### 自定义UI
 ------------
+#### 添加地图标注
+可以获取TNKCarNaviView的地图实例，通过地图实例操控地图视野、添加路线/标注等；
+
+**1. 获取地图实例**
+```objc
+// self需采用QMapViewDelegate协议
+self.naviView.naviMapView.delegate = self;
+```
+**2. 添加折线**
+实现协议中的mapView: viewForOverlay回调函数：
+```objc
+- (QOverlayView *)mapView:(QMapView *)mapView viewForOverlay:(id<QOverlay>)overlay
+{
+if ([overlay isKindOfClass:[QPolyline class]])
+{
+QPolylineView *polylineView = [[QPolylineView alloc] initWithPolyline:overlay];
+// 设置宽度和虚线形状
+polylineView.lineWidth   = 2;
+NSArray<NSNumber *> *lineDashPattern = [[NSArray alloc] initWithObjects:[[NSNumber alloc] initWithInt:20], [[NSNumber alloc] initWithInt:20], nil];
+
+polylineView.lineDashPattern = lineDashPattern;
+polylineView.strokeColor = [UIColor blackColor];
+
+return polylineView;
+}
+
+return nil;
+}
+```
+添加折线：
+在获取位置的mapView: didUpdateUserLocation: fromHeading回调中添加当前位置到终点的折线：
+```objc
+- (void)mapView:(QMapView *)mapView didUpdateUserLocation:(QUserLocation *)userLocation fromHeading:(BOOL)fromHeading
+{
+if(!self.flag)
+{
+[self startNavi:userLocation.location.coordinate];
+self.flag = YES;
+}
+if(self.polyline != nil) {
+[self.naviView.naviMapView removeOverlay:self.polyline];
+}
+CLLocationCoordinate2D lineCoord[2];
+lineCoord[0] = userLocation.location.coordinate;
+lineCoord[1] = self.endPoi;
+self.polyline = [QPolyline polylineWithCoordinates:lineCoord count:2];
+//在地图上添加折线
+[self.naviView.naviMapView addOverlay:self.polyline];
+}
+```
+![](designed4.jpeg)
+
+
 #### 添加面板控件
 获取的导航数据可以用来添加导航面板控件，自定义导航面板。
 
@@ -386,6 +439,7 @@ self.textView2 = [[UITextField alloc] initWithFrame:CGRectMake(7, 200, 60, 60)];
 }
 ```
 ![](designed2.jpeg)
+
 
 #### 自定义导航面板
 **1. 关闭默认面板**
@@ -440,9 +494,11 @@ self.textView2 = [[UITextView alloc] initWithFrame:CGRectMake(200, 30, 170, 70)]
 ```
 ![](designed1.jpeg)
 
+
 #### 自定义资源
 如果想要自定义资源，如小车Marker、自车罗盘等，用户可以直接替换`TencentNavigationKit.bundle`中的资源文件，（不能修改资源名称）此时导航SDK在使用时会加载用户提供的资源文件。
 
 ![](designed3.jpeg)
+
 
 
