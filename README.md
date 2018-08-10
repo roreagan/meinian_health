@@ -354,6 +354,7 @@ didFailRecaculateRoute:(TNKCarNaviManagerRecaculateType)type;
 self.naviView.naviMapView.delegate = self;
 ```
 **2. 添加折线**
+
 实现协议中的mapView: viewForOverlay回调函数：
 ```objc
 - (QOverlayView *)mapView:(QMapView *)mapView viewForOverlay:(id<QOverlay>)overlay
